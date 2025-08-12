@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chakdola Mushroom Labour Register</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #2c7873 0%, #667eea 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .form-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .icon {
+            font-size: 16px;
+        }
+        
+        input, select, button {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #2c7873;
+            box-shadow: 0 0 0 3px rgba(44, 120, 115, 0.1);
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #2c7873, #667eea);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(45deg, #34a853, #0d9f76);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(45deg, #ea4335, #d93025);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(45deg, #fbbc05, #fb8c00);
+        }
+        
+        .filter-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            align-items: end;
+            margin-bottom: 20px;
+        }
+        
+        .data-table {
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            min-width: 800px;
+        }
+        
+        th, td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+        
+        th {
+            background: linear-gradient(45deg, #2c7873, #667eea);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 12px;
+        }
+        
+        tr:hover {
+            background-color: #f8f9ff;
+        }
+        
+        .action-btn {
+            background: #ea4335;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .action-btn:hover {
+            background: #d93025;
+            transform: scale(1.05);
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c7873;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .no-data {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 40px;
+            font-size: 16px;
+        }
+        
+        .salary-amount {
+            font-weight: 600;
+            color: #34a853;
+        }
+        
+        .status-message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .login-header h2 {
+            color: #2c7873;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .tab-container {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            color: #2c7873;
+            border-bottom: 3px solid #2c7873;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .form-section, .filter-section {
+                grid-template-columns: 1fr;
+            }
+            
+            th, td {
+                padding: 8px 4px;
+                font-size: 12px;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .login-container {
+                margin: 50px 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Section -->
+    <div id="loginSection" class="login-container">
+        <div class="login-header">
+            <h2>🔐 Chakdola Mushroom Labour Register</h2>
+            <p>Secure time tracking and salary management system</p>
+        </div>
+        
+        <div class="tab-container">
+            <div class="tab active" onclick="switchTab('login')">Login</div>
+            <div class="tab" onclick="switchTab('admin')">Admin</div>
+        </div>
+        
+        <div id="loginTab" class="tab-content active">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="icon">👤 Username</label>
+                    <input type="text" id="loginUsername" required placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label class="icon">🔒 Password</label>
+                    <div style="position: relative;">
+                        <input type="password" id="loginPassword" required placeholder="Enter your password">
+                        <span class="password-toggle" onclick="togglePassword('loginPassword')">👁️</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">
+                    <span>🔑</span> Login
+                </button>
+            </form>
+        </div>
+        
+        <div id="adminTab" class="tab-content">
+            <form id="adminForm">
+                <div class="form-group">
+                    <label class="icon">👤 Admin Username</label>
+                    <input type="text" id="adminUsername" required value="admin" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="icon">🔒 Admin Password</label>
+                    <div style="position: relative;">
+                        <input type="password" id="adminPassword" required value="admin123" readonly>
+                        <span class="password-toggle" onclick="togglePassword('adminPassword')">👁️</span>
+                    </div>
+                </div>
+                <button type="button" class="btn" style="width: 100%; margin-top: 10px;" onclick="loginAsAdmin()">
+                    <span>👑</span> Login as Admin
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Application (Hidden initially) -->
+    <div id="mainApp" style="display: none;">
+        <div class="container">
+            <div class="header">
+                <h1>🍄 Chakdola Mushroom Labour Register</h1>
+                <p>Track employee details with entry/exit times and salary information</p>
+            </div>
+            
+            <!-- User Info Bar -->
+            <div class="card" style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <strong>👤 Logged in as:</strong> <span id="currentUser">Unknown</span> 
+                    <span id="userRole" style="margin-left: 15px; padding: 3px 8px; background: #2c7873; color: white; border-radius: 4px; font-size: 12px;"></span>
+                </div>
+                <button onclick="logout()" class="btn btn-danger" style="padding: 8px 16px;">
+                    <span>🚪</span> Logout
+                </button>
+            </div>
+            
+            <!-- Employee Management (Admin Only) -->
+            <div id="adminSection">
+                <div class="card">
+                    <h2 style="margin-bottom: 20px; color: #333;">➕ Add New Employee</h2>
+                    <div id="statusMessage" class="status-message"></div>
+                    
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label class="icon">👤 Employee Name *</label>
+                            <input type="text" id="employeeName" required placeholder="Enter full name">
+                        </div>
+                        <div class="form-group">
+                            <label class="icon">💼 Designation *</label>
+                            <input type="text" id="designation" required placeholder="Enter job title">
+                        </div>
+                        <div class="form-group">
+                            <label class="icon">🆔 Username *</label>
+                            <input type="text" id="employeeUsername" required placeholder="Create unique username">
+                        </div>
+                        <div class="form-group">
+                            <label class="icon">🔒 Password *</label>
+                            <div style="position: relative;">
+                                <input type="password" id="employeePassword" required placeholder="Create password">
+                                <span class="password-toggle" onclick="togglePassword('employeePassword')">👁️</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="icon">💵 Hourly Rate (₹) *</label>
+                            <input type="number" id="hourlyRate" required placeholder="Enter hourly rate" step="0.01" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label class="icon">💰 Payment Type *</label>
+                            <select id="paymentType" required>
+                                <option value="">Select Payment Type</option>
+                                <option value="hourly">Hourly Basis</option>
+                                <option value="monthly">Monthly Basis</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>&nbsp;</label>
+                            <button type="button" class="btn" onclick="addEmployee()">
+                                <span>➕</span> Create Employee
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Entry Section (For Data Entry Personnel) -->
+            <div id="dataEntrySection" class="card">
+                <h2 style="margin-bottom: 20px; color: #333;">📝 Data Entry Operation</h2>
+                <div class="form-section">
+                    <div class="form-group">
+                        <label class="icon">👥 Employee Name</label>
+                        <select id="employeeSelect" required>
+                            <option value="">Select Employee</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="icon">📅 Date</label>
+                        <input type="date" id="entryDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="icon">🕒 Entry Time</label>
+                        <input type="time" id="entryTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="icon">🔚 Exit Time</label>
+                        <input type="time" id="exitTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn" onclick="recordAttendance()">
+                            <span>💾</span> Save Entry
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-warning" onclick="clearForm()">
+                            <span>🧹</span> Clear Form
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Filter Section -->
+            <div class="card">
+                <h2 style="margin-bottom: 20px; color: #333;">🔍 Filter Records</h2>
+                
+                <div class="filter-section">
+                    <div class="form-group">
+                        <label class="icon">👥 Select Employee</label>
+                        <select id="filterEmployee" onchange="handleEmployeeFilter()">
+                            <option value="">All Employees</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="icon">📅 From Date</label>
+                        <input type="date" id="fromDate">
+                    </div>
+                    <div class="form-group">
+                        <label class="icon">📅 To Date</label>
+                        <input type="date" id="toDate">
+                    </div>
+                    <div class="form-group">
+                        <label class="icon">📊 View All Dates</label>
+                        <button type="button" class="btn btn-secondary" onclick="viewAllDates()">
+                            <span>📅</span> View All
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-secondary" onclick="filterRecords()">
+                            <span>🔍</span> Apply Filter
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-danger" onclick="clearFilters()">
+                            <span>🧹</span> Clear Filters
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-secondary" onclick="exportToExcel()">
+                            <span>📊</span> Export Excel
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Salary Calculator -->
+            <div id="salaryCalculator" class="card" style="display: none;">
+                <h3 style="margin-bottom: 15px; color: #34a853;">💰 Salary Calculator</h3>
+                <div class="form-section" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <div class="form-group">
+                        <label class="icon">💵 Hourly Rate</label>
+                        <input type="number" id="calcHourlyRate" placeholder="Enter hourly rate" step="0.01" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-secondary" onclick="calculateSalary()">
+                            <span>🧮</span> Calculate Salary
+                        </button>
+                    </div>
+                </div>
+                <div id="salaryResult" style="margin-top: 15px; padding: 15px; background: rgba(52, 168, 83, 0.1); border-radius: 8px; display: none;">
+                    <h4 style="color: #34a853; margin-bottom: 10px;">📊 Salary Calculation Result</h4>
+                    <div id="salaryDetails"></div>
+                </div>
+            </div>
+            
+            <!-- Statistics -->
+            <div class="stats" id="statsSection">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalRecords">0</div>
+                    <div class="stat-label">Total Records</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalEmployees">0</div>
+                    <div class="stat-label">Total Employees</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalHours">0</div>
+                    <div class="stat-label">Total Hours</div>
+                </div>
+                <div class="stat-card salary-stat">
+                    <div class="stat-number" id="totalSalary">₹0</div>
+                    <div class="stat-label">Total Salary</div>
+                </div>
+            </div>
+            
+            <!-- Data Table -->
+            <div class="card">
+                <h2 style="margin-bottom: 20px; color: #333;">📋 Employee Time Records</h2>
+                <div class="data-table">
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Employee Name</th>
+                                <th>Designation</th>
+                                <th>Date</th>
+                                <th>Entry Time</th>
+                                <th>Exit Time</th>
+                                <th>Total Hours</th>
+                                <th>Salary Type</th>
+                                <th>Salary Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let employeeData = [];
+        let attendanceRecords = [];
+        let currentUser = null;
+        let isFiltered = false;
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already logged in
+            const savedUser = localStorage.getItem('chakdolaCurrentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showMainApp();
+            }
+            
+            // Load data from localStorage
+            loadData();
+        });
+
+        // Show status message
+        function showStatus(message, isError = false) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.innerHTML = `<span>${isError ? '❌' : '✅'}</span> ${message}`;
+            statusDiv.className = `status-message ${isError ? 'status-error' : 'status-success'}`;
+            statusDiv.style.display = 'flex';
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Switch between login tabs
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            document.querySelector(`.tab[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}Tab`).classList.add('active');
+        }
+
+        // Toggle password visibility
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            if (field.type === 'password') {
+                field.type = 'text';
+            } else {
+                field.type = 'password';
+            }
+        }
+
+        // Login as admin
+        function loginAsAdmin() {
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            if (username === 'admin' && password === 'admin123') {
+                currentUser = {
+                    id: 1,
+                    username: 'admin',
+                    name: 'Administrator',
+                    role: 'admin'
+                };
+                localStorage.setItem('chakdolaCurrentUser', JSON.stringify(currentUser));
+                showMainApp();
+                showStatus('Admin login successful!');
+            } else {
+                showStatus('Invalid admin credentials!', true);
+            }
+        }
+
+        // Handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Check if user exists in employee data
+            const employee = employeeData.find(emp => emp.username === username && emp.password === password);
+            
+            if (employee) {
+                currentUser = {
+                    id: employee.id,
+                    username: employee.username,
+                    name: employee.name,
+                    role: 'employee',
+                    designation: employee.designation,
+                    hourlyRate: employee.hourlyRate,
+                    paymentType: employee.paymentType
+                };
+                localStorage.setItem('chakdolaCurrentUser', JSON.stringify(currentUser));
+                showMainApp();
+                showStatus(`Welcome back, ${employee.name}!`);
+            } else {
+                showStatus('Invalid credentials!', true);
+            }
+        });
+
+        // Show main application
+        function showMainApp() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            document.getElementById('currentUser').textContent = currentUser.name;
+            document.getElementById('userRole').textContent = currentUser.role.toUpperCase();
+            
+            // Show/hide admin section based on role
+            document.getElementById('adminSection').style.display = currentUser.role === 'admin' ? 'block' : 'none';
+            document.getElementById('dataEntrySection').style.display = currentUser.role === 'admin' || currentUser.role === 'data_entry' ? 'block' : 'none';
+            
+            // Update UI based on current user
+            updateEmployeeDropdown();
+            updateEmployeeSelect();
+            loadData();
+            updateStats();
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                currentUser = null;
+                localStorage.removeItem('chakdolaCurrentUser');
+                document.getElementById('mainApp').style.display = 'none';
+                document.getElementById('loginSection').style.display = 'block';
+                document.getElementById('loginForm').reset();
+                showStatus('Logged out successfully!');
+            }
+        }
+
+        // Add new employee (Admin only)
+        function addEmployee() {
+            if (!currentUser || currentUser.role !== 'admin') {
+                showStatus('Access denied! Admin privileges required.', true);
+                return;
+            }
+            
+            const name = document.getElementById('employeeName').value.trim();
+            const designation = document.getElementById('designation').value.trim();
+            const username = document.getElementById('employeeUsername').value.trim();
+            const password = document.getElementById('employeePassword').value;
+            const hourlyRate = parseFloat(document.getElementById('hourlyRate').value);
+            const paymentType = document.getElementById('paymentType').value;
+            
+            if (!name || !designation || !username || !password || !hourlyRate || !paymentType) {
+                showStatus('Please fill all fields!', true);
+                return;
+            }
+            
+            // Check if username already exists
+            if (employeeData.some(emp => emp.username === username)) {
+                showStatus('Username already exists. Please choose a different username.', true);
+                return;
+            }
+            
+            const newEmployee = {
+                id: Date.now(),
+                name: name,
+                designation: designation,
+                username: username,
+                password: password,
+                hourlyRate: hourlyRate,
+                paymentType: paymentType
+            };
+            
+            employeeData.push(newEmployee);
+            saveData();
+            clearEmployeeForm();
+            updateEmployeeDropdown();
+            updateEmployeeSelect();
+            showStatus(`Employee "${name}" created successfully!`);
+        }
+
+        // Round time to nearest 30 minutes
+        function roundToNearest30Minutes(dateTime) {
+            const date = new Date(dateTime);
+            const minutes = date.getMinutes();
+            const roundedMinutes = Math.round(minutes / 30) * 30;
+            date.setMinutes(roundedMinutes);
+            date.setSeconds(0);
+            date.setMilliseconds(0);
+            if (roundedMinutes === 60) {
+                date.setMinutes(0);
+                date.setHours(date.getHours() + 1);
+            }
+            return date;
+        }
+
+        // Calculate hours between two times with rounding
+        function calculateHours(entry, exit) {
+            const entryTime = new Date(entry);
+            const exitTime = new Date(exit);
+            const diff = (exitTime - entryTime) / (1000 * 60 * 60);
+            return diff > 0 ? Math.round(diff * 2) / 2 : 0; // Round to nearest 0.5 hours
+        }
+
+        // Record attendance
+        function recordAttendance() {
+            if (!currentUser) {
+                showStatus('Please login first!', true);
+                return;
+            }
+            
+            const employeeSelect = document.getElementById('employeeSelect');
+            const selectedEmployeeId = employeeSelect.value;
+            const entryDate = document.getElementById('entryDate').value;
+            const entryTime = document.getElementById('entryTime').value;
+            const exitTime = document.getElementById('exitTime').value;
+            
+            if (!selectedEmployeeId) {
+                showStatus('Please select an employee!', true);
+                return;
+            }
+            
+            if (!entryDate || !entryTime || !exitTime) {
+                showStatus('Please fill all time fields!', true);
+                return;
+            }
+            
+            // Combine date and time
+            const entryDateTime = `${entryDate}T${entryTime}`;
+            const exitDateTime = `${entryDate}T${exitTime}`;
+            
+            if (new Date(exitDateTime) <= new Date(entryDateTime)) {
+                showStatus('Exit time must be after entry time!', true);
+                return;
+            }
+            
+            const hoursWorked = calculateHours(entryDateTime, exitDateTime);
+            const employee = employeeData.find(emp => emp.id == selectedEmployeeId);
+            
+            if (!employee) {
+                showStatus('Employee not found!', true);
+                return;
+            }
+            
+            // Check if this record already exists (prevent duplicates)
+            const existingRecord = attendanceRecords.find(record => 
+                record.employeeId === employee.id && 
+                record.date === entryDate &&
+                record.entryTime === entryTime &&
+                record.exitTime === exitTime
+            );
+            
+            if (existingRecord) {
+                showStatus('This attendance record already exists!', true);
+                return;
+            }
+            
+            const record = {
+                id: Date.now(),
+                employeeId: employee.id,
+                employeeName: employee.name,
+                designation: employee.designation,
+                date: entryDate,
+                entryTime: entryTime,
+                exitTime: exitTime,
+                hoursWorked: hoursWorked,
+                paymentType: employee.paymentType,
+                salaryAmount: 0
+            };
+            
+            attendanceRecords.push(record);
+            saveData();
+            clearAttendanceForm();
+            loadData();
+            updateStats();
+            showStatus('Attendance recorded successfully!');
+        }
+
+        // Clear employee form
+        function clearEmployeeForm() {
+            document.getElementById('employeeName').value = '';
+            document.getElementById('designation').value = '';
+            document.getElementById('employeeUsername').value = '';
+            document.getElementById('employeePassword').value = '';
+            document.getElementById('hourlyRate').value = '';
+            document.getElementById('paymentType').value = '';
+        }
+
+        // Clear attendance form
+        function clearAttendanceForm() {
+            document.getElementById('employeeSelect').value = '';
+            document.getElementById('entryDate').value = '';
+            document.getElementById('entryTime').value = '';
+            document.getElementById('exitTime').value = '';
+        }
+
+        // Clear all forms
+        function clearForm() {
+            if (currentUser && currentUser.role === 'admin') {
+                clearEmployeeForm();
+            }
+            clearAttendanceForm();
+        }
+
+        // Load data from localStorage
+        function loadData() {
+            try {
+                const savedEmployees = localStorage.getItem('chakdolaEmployees');
+                const savedAttendance = localStorage.getItem('chakdolaAttendance');
+                
+                if (savedEmployees) {
+                    employeeData = JSON.parse(savedEmployees);
+                }
+                
+                if (savedAttendance) {
+                    attendanceRecords = JSON.parse(savedAttendance);
+                }
+                
+                // If no data, create default admin
+                if (employeeData.length === 0) {
+                    employeeData = [{
+                        id: 1,
+                        name: 'Administrator',
+                        designation: 'System Administrator',
+                        username: 'admin',
+                        password: 'admin123',
+                        hourlyRate: 100,
+                        paymentType: 'hourly'
+                    }];
+                    saveData();
+                }
+                
+                // Filter records based on current user
+                filterRecords();
+            } catch (error) {
+                console.error('Error loading ', error);
+                showStatus('Error loading data. Using default settings.', true);
+            }
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            try {
+                localStorage.setItem('chakdolaEmployees', JSON.stringify(employeeData));
+                localStorage.setItem('chakdolaAttendance', JSON.stringify(attendanceRecords));
+            } catch (error) {
+                console.error('Error saving ', error);
+                showStatus('Error saving data. Please try again.', true);
+            }
+        }
+
+        // Update employee dropdown for filtering
+        function updateEmployeeDropdown() {
+            const select = document.getElementById('filterEmployee');
+            if (!select) return;
+            
+            const currentValue = select.value;
+            const employees = [...new Set(attendanceRecords.map(record => record.employeeName))];
+            select.innerHTML = '<option value="">All Employees</option>';
+            
+            employees.forEach(name => {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                select.appendChild(option);
+            });
+            
+            select.value = currentValue;
+        }
+
+        // Update employee select for recording attendance
+        function updateEmployeeSelect() {
+            const select = document.getElementById('employeeSelect');
+            if (!select) return;
+            
+            const currentValue = select.value;
+            select.innerHTML = '<option value="">Select Employee</option>';
+            
+            employeeData.forEach(employee => {
+                const option = document.createElement('option');
+                option.value = employee.id;
+                option.textContent = employee.name;
+                select.appendChild(option);
+            });
+            
+            select.value = currentValue;
+        }
+
+        // Filter records
+        function filterRecords() {
+            if (!currentUser) return;
+            
+            const selectedEmployee = document.getElementById('filterEmployee').value;
+            const fromDate = document.getElementById('fromDate').value;
+            const toDate = document.getElementById('toDate').value;
+            
+            // Filter based on current user role
+            let filtered = [...attendanceRecords];
+            
+            // Admin can see all, employees can only see their own records
+            if (currentUser.role === 'employee') {
+                filtered = filtered.filter(record => record.employeeId === currentUser.id);
+            }
+            
+            // Apply additional filters
+            if (selectedEmployee) {
+                filtered = filtered.filter(record => record.employeeName === selectedEmployee);
+            }
+            
+            if (fromDate) {
+                filtered = filtered.filter(record => record.date >= fromDate);
+            }
+            
+            if (toDate) {
+                filtered = filtered.filter(record => record.date <= toDate);
+            }
+            
+            isFiltered = filtered.length !== attendanceRecords.length;
+            displayData(filtered);
+            updateStats();
+        }
+
+        // View all dates
+        function viewAllDates() {
+            document.getElementById('fromDate').value = '';
+            document.getElementById('toDate').value = '';
+            document.getElementById('filterEmployee').value = '';
+            filterRecords();
+            showStatus('Showing all date entries');
+        }
+
+        // Display data in table
+        function displayData(data = attendanceRecords) {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+            
+            if (data.length === 0) {
+                const colSpan = 9;
+                tableBody.innerHTML = `<tr><td colspan="${colSpan}" class="no-data">No records found</td></tr>`;
+                return;
+            }
+            
+            data.forEach(record => {
+                const employee = employeeData.find(emp => emp.id === record.employeeId);
+                const hourlyRate = employee ? employee.hourlyRate : 0;
+                let salaryAmount = 0;
+                let salaryType = record.paymentType || 'hourly';
+                
+                if (salaryType === 'hourly') {
+                    salaryAmount = record.hoursWorked * hourlyRate;
+                } else if (salaryType === 'monthly') {
+                    // For monthly employees, calculate based on days worked
+                    salaryAmount = (hourlyRate * 8 * 26) * (record.hoursWorked / 8); // Assuming 8 hours per day, 26 days per month
+                }
+                
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td><strong>${record.employeeName}</strong></td>
+                    <td>${record.designation}</td>
+                    <td>${formatDate(record.date)}</td>
+                    <td><strong>${record.entryTime}</strong></td>
+                    <td><strong>${record.exitTime}</strong></td>
+                    <td><strong>${record.hoursWorked.toFixed(1)} hrs</strong></td>
+                    <td><span style="padding: 3px 8px; border-radius: 4px; background: ${salaryType === 'hourly' ? '#34a853' : '#ea4335'}; color: white; font-size: 12px;">${salaryType === 'hourly' ? 'Hourly' : 'Monthly'}</span></td>
+                    <td><span class="salary-amount">₹${salaryAmount.toFixed(2)}</span></td>
+                    <td>
+                        <button class="action-btn btn-danger" onclick="deleteRecord(${record.id})">
+                            <span>🗑️</span> Delete
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Handle employee filter change
+        function handleEmployeeFilter() {
+            const selectedEmployee = document.getElementById('filterEmployee').value;
+            const salaryCalculator = document.getElementById('salaryCalculator');
+            
+            if (selectedEmployee && currentUser.role === 'admin') {
+                salaryCalculator.style.display = 'block';
+            } else {
+                salaryCalculator.style.display = 'none';
+                document.getElementById('salaryResult').style.display = 'none';
+            }
+        }
+
+        // Calculate salary
+        function calculateSalary() {
+            if (currentUser.role !== 'admin') {
+                showStatus('Only admin can calculate salaries!', true);
+                return;
+            }
+            
+            const hourlyRate = parseFloat(document.getElementById('calcHourlyRate').value);
+            const selectedEmployee = document.getElementById('filterEmployee').value;
+            
+            if (!hourlyRate || hourlyRate <= 0) {
+                showStatus('Please enter a valid hourly rate!', true);
+                return;
+            }
+            
+            if (!selectedEmployee) {
+                showStatus('Please select an employee first!', true);
+                return;
+            }
+            
+            // Filter records for the selected employee
+            const employeeRecords = attendanceRecords.filter(record => record.employeeName === selectedEmployee);
+            const employee = employeeData.find(emp => emp.name === selectedEmployee);
+            if (!employee) {
+                showStatus('Employee not found!', true);
+                return;
+            }
+            
+            let totalHours = 0;
+            let totalSalary = 0;
+            let salaryBreakdown = [];
+            const salaryType = employee.paymentType || 'hourly';
+            
+            employeeRecords.forEach(record => {
+                let salaryAmount = 0;
+                if (salaryType === 'hourly') {
+                    salaryAmount = record.hoursWorked * hourlyRate;
+                } else if (salaryType === 'monthly') {
+                    salaryAmount = (hourlyRate * 8 * 26) * (record.hoursWorked / 8);
+                }
+                
+                record.salaryAmount = salaryAmount;
+                totalHours += record.hoursWorked;
+                totalSalary += salaryAmount;
+                salaryBreakdown.push({
+                    date: formatDate(record.date),
+                    hours: record.hoursWorked.toFixed(1),
+                    salary: salaryAmount.toFixed(2),
+                    type: salaryType
+                });
+            });
+            
+            // Update the display
+            saveData();
+            filterRecords();
+            updateStats();
+            
+            // Show result
+            const resultDiv = document.getElementById('salaryResult');
+            const detailsDiv = document.getElementById('salaryDetails');
+            
+            let breakdownHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                    <div><strong>Employee:</strong> ${selectedEmployee}</div>
+                    <div><strong>Hourly Rate:</strong> ₹${hourlyRate.toFixed(2)}</div>
+                    <div><strong>Payment Type:</strong> <span style="padding: 3px 8px; border-radius: 4px; background: ${salaryType === 'hourly' ? '#34a853' : '#ea4335'}; color: white;">${salaryType === 'hourly' ? 'Hourly' : 'Monthly'}</span></div>
+                    <div><strong>Total Hours:</strong> ${totalHours.toFixed(1)} hrs</div>
+                    <div><strong style="color: #34a853; font-size: 1.2em;">Total Salary:</strong> <span style="color: #34a853; font-size: 1.2em;">₹${totalSalary.toFixed(2)}</span></div>
+                </div>
+                <h5>Daily Breakdown:</h5>
+                <div style="max-height: 200px; overflow-y: auto;">
+                    <table style="width: 100%; font-size: 12px;">
+                        <thead><tr style="background: #f8f9fa;">
+                            <th style="padding: 5px; border: 1px solid #ddd;">Date</th>
+                            <th style="padding: 5px; border: 1px solid #ddd;">Hours</th>
+                            <th style="padding: 5px; border: 1px solid #ddd;">Payment Type</th>
+                            <th style="padding: 5px; border: 1px solid #ddd;">Salary</th>
+                        </tr></thead><tbody>`;
+            
+            salaryBreakdown.forEach(day => {
+                breakdownHTML += `<tr>
+                    <td style="padding: 5px; border: 1px solid #ddd;">${day.date}</td>
+                    <td style="padding: 5px; border: 1px solid #ddd;">${day.hours} hrs</td>
+                    <td style="padding: 5px; border: 1px solid #ddd;"><span style="padding: 2px 6px; border-radius: 3px; background: ${day.type === 'hourly' ? '#34a853' : '#ea4335'}; color: white;">${day.type === 'hourly' ? 'Hourly' : 'Monthly'}</span></td>
+                    <td style="padding: 5px; border: 1px solid #ddd;">₹${day.salary}</td>
+                </tr>`;
+            });
+            
+            breakdownHTML += '</tbody></table></div>';
+            detailsDiv.innerHTML = breakdownHTML;
+            resultDiv.style.display = 'block';
+            showStatus(`Salary calculated! Total: ₹${totalSalary.toFixed(2)} for ${totalHours.toFixed(1)} hours`);
+        }
+
+        // Clear filters
+        function clearFilters() {
+            document.getElementById('filterEmployee').value = '';
+            document.getElementById('fromDate').value = '';
+            document.getElementById('toDate').value = '';
+            document.getElementById('calcHourlyRate').value = '';
+            document.getElementById('salaryCalculator').style.display = 'none';
+            document.getElementById('salaryResult').style.display = 'none';
+            isFiltered = false;
+            filterRecords();
+        }
+
+        // Delete record
+        function deleteRecord(id) {
+            if (!currentUser) {
+                showStatus('Please login first!', true);
+                return;
+            }
+            
+            const record = attendanceRecords.find(r => r.id === id);
+            if (!record) return;
+            
+            // Only admin can delete records
+            if (currentUser.role !== 'admin') {
+                showStatus('Only admin can delete records!', true);
+                return;
+            }
+            
+            if (confirm('Are you sure you want to delete this attendance record?')) {
+                attendanceRecords = attendanceRecords.filter(record => record.id !== id);
+                saveData();
+                filterRecords();
+                updateStats();
+                showStatus('Attendance record deleted successfully!');
+            }
+        }
+
+        // Update statistics
+        function updateStats() {
+            // Get current filtered data
+            const currentData = document.getElementById('tableBody').innerHTML.includes('No records found') ? 
+                [] : 
+                attendanceRecords.filter(record => {
+                    const selectedEmployee = document.getElementById('filterEmployee')?.value;
+                    const fromDate = document.getElementById('fromDate')?.value;
+                    const toDate = document.getElementById('toDate')?.value;
+                    
+                    let matches = true;
+                    if (selectedEmployee && record.employeeName !== selectedEmployee) matches = false;
+                    if (fromDate && record.date < fromDate) matches = false;
+                    if (toDate && record.date > toDate) matches = false;
+                    return matches;
+                });
+            
+            const totalRecords = currentData.length;
+            const totalEmployees = new Set(currentData.map(record => record.employeeId)).size;
+            
+            let totalHours = 0;
+            let totalSalary = 0;
+            
+            currentData.forEach(record => {
+                const employee = employeeData.find(emp => emp.id === record.employeeId);
+                const hourlyRate = employee ? employee.hourlyRate : 0;
+                let salaryAmount = 0;
+                
+                if (record.paymentType === 'hourly') {
+                    salaryAmount = record.hoursWorked * hourlyRate;
+                } else if (record.paymentType === 'monthly') {
+                    salaryAmount = (hourlyRate * 8 * 26) * (record.hoursWorked / 8);
+                }
+                
+                totalHours += record.hoursWorked;
+                totalSalary += salaryAmount;
+            });
+            
+            document.getElementById('totalRecords').textContent = totalRecords;
+            document.getElementById('totalEmployees').textContent = totalEmployees;
+            document.getElementById('totalHours').textContent = totalHours.toFixed(1);
+            document.getElementById('totalSalary').textContent = `₹${totalSalary.toFixed(2)}`;
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
+        // Export to Excel
+        function exportToExcel() {
+            if (attendanceRecords.length === 0) {
+                showStatus('No data to export!', true);
+                return;
+            }
+            
+            // Create CSV content
+            let csv = 'Employee Name,Designation,Date,Entry Time,Exit Time,Hours Worked,Payment Type,Salary Amount\n';
+            
+            attendanceRecords.forEach(record => {
+                const employee = employeeData.find(emp => emp.id === record.employeeId);
+                const hourlyRate = employee ? employee.hourlyRate : 0;
+                let salaryAmount = 0;
+                
+                if (record.paymentType === 'hourly') {
+                    salaryAmount = record.hoursWorked * hourlyRate;
+                } else if (record.paymentType === 'monthly') {
+                    salaryAmount = (hourlyRate * 8 * 26) * (record.hoursWorked / 8);
+                }
+                
+                csv += `"${record.employeeName}","${record.designation}","${formatDate(record.date)}","${record.entryTime}","${record.exitTime}","${record.hoursWorked.toFixed(1)}","${record.paymentType === 'hourly' ? 'Hourly' : 'Monthly'}","₹${salaryAmount.toFixed(2)}"\n`;
+            });
+            
+            // Create download link
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `chakdola_labour_register_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            
+            URL.revokeObjectURL(url);
+            showStatus('Data exported successfully!');
+        }
+    </script>
+</body>
+</html>
+```
